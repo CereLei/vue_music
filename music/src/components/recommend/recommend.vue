@@ -11,7 +11,18 @@
          </slider>
        </div>
        <div class="recommend-list">
-         <h1 class="list-title">热门歌单推荐</h1>
+         <h1 class="list-title">电台</h1>
+         <ul>
+           <li v-for="item in discList" class="item">
+             <div class="icon">
+               <img :src="item.picUrl" height="60" width="60">
+             </div>
+             <div class="text">
+                <h2 class="name" v-html="item.Ftitle"></h2>
+                <p class="desc">{{item.radioid}}访问</p>
+             </div>
+           </li>
+         </ul>
        </div>
      </div>
   </div>
@@ -27,19 +38,25 @@ export default {
   },
   data(){
     return{
-      recommends:[]
+      recommends:[],
+      discList:[]
     }
   },
   created(){
-    this._getRecommend()
+    this._getRecommend();
+    this._getDiscList();
   },
   methods:{
     _getRecommend(){
       getRecommend().then((res)=>{
         if(res.code==ERR_OK){
-          console.log(res.data)
           this.recommends=res.data.slider
         }
+      })
+    },
+    _getDiscList() {
+      getDiscList().then((res) => {
+        this.discList = res.data.radioList;
       })
     }
   }

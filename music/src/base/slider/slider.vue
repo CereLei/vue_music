@@ -109,7 +109,11 @@ export default {
                 this.slider.goToPage(pageIndex, 0, 400)
             }, this.interval)
         }
-    }
+    },
+    destroyed() {
+        /*组件中有定时器之类的，在销毁的结束，释放内存*/
+        clearTimeout(this.timer)
+    },
 }
 </script>
 
