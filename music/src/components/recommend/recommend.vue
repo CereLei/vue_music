@@ -1,6 +1,6 @@
 <template>
   <div class="recommend">
-     <div class="recommend-content">
+     <scroll ref="scroll" class="recommend-content" :data="discList">
        <div v-if="recommends.length" class="slider-wrapper">
          <slider>
            <div v-for="item in recommends">
@@ -24,17 +24,19 @@
            </li>
          </ul>
        </div>
-     </div>
+     </scroll>
   </div>
 </template>
 
 <script>
+  import Scroll from 'base/scroll/scroll'
   import Slider from 'base/slider/slider'
   import {getRecommend, getDiscList} from 'api/recommend'
   import {ERR_OK} from 'api/config'
 export default {
   components:{
-    Slider
+    Slider,
+    Scroll
   },
   data(){
     return{
@@ -58,6 +60,13 @@ export default {
       getDiscList().then((res) => {
         this.discList = res.data.radioList;
       })
+    },
+    loadImage(){
+      if(!this.checkLoaded){
+        this.$refs.scroll.refresh()
+        this.checkLoaded=true
+      }
+      this.$refs.scroll.refresh()
     }
   }
 }
