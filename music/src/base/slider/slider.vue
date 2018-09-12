@@ -12,6 +12,7 @@
 <script type="text/ecmascript-6">
 import BScroll from 'better-scroll';
 import { addClass } from 'common/js/dom.js'
+
 export default {
     name: 'slider',
     props: {
@@ -114,6 +115,7 @@ export default {
         /*组件中有定时器之类的，在销毁的结束，释放内存*/
         clearTimeout(this.timer)
     },
+
 }
 </script>
 
