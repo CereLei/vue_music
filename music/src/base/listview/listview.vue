@@ -71,6 +71,8 @@ export default {
             let firstTouch=e.touches[0];
             this.touch.y1=firstTouch.pageY;
             this.touch.anchorIndex=anchorIndex;
+            // this.clientHeight=anchorIndex
+            console.log(anchorIndex)
            this._scrollTo(anchorIndex)
         },
         onShortcutTouchMove(e){
@@ -85,7 +87,19 @@ export default {
             this.scrollY=pos.y;
         },
         _scrollTo(index){
-            this.$refs.listview.scrollToElement(this.$refs.listGroup[index],0)
+            //前后空白处的点击
+            if(!index && index !=0){
+                return
+            }
+            //边界处理
+            if(index<0){
+                index=0
+            }else if(index>this.listHeight.length-2){
+                index=this.listHeight.length-2
+            }
+            this.currentIndex=index;
+         this.scrollY = -this.listHeight[index]
+        this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
         },
         _calculateHeight(){
            this.listHeight=[];
@@ -107,6 +121,12 @@ export default {
         },
         scrollY(newY){
             const listHeight=this.listHeight;
+            //当滚到到顶部 newY>0
+            if(newY>0){
+                this.currentIndex=0;
+                return
+            }
+             //在中间部分滚到
             for(let i=0;i<listHeight.length;i++){
                 let height1=listHeight[i];
                 let height2=listHeight[i+1];
@@ -115,6 +135,8 @@ export default {
                     return
                 }
             }
+            //滚动到底部，并且-newY大于最后一个上线
+             this.currentIndex=listHeight.length-2;
             this.currentIndex=0
         }
     }
