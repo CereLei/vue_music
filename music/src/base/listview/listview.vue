@@ -52,8 +52,9 @@ export default {
         }
     },
     components:{
-        Scroll,
-        Loading
+        Loading,
+        Scroll
+        
     },
     computed:{
         shortcutList(){
