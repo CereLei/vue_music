@@ -1,4 +1,14 @@
 import * as types from './mutation-types'
+//定义修改的数据
+/*
+mutations是个对象，里面是方法去修改
+mutations={
+  【方法名字】(获取状态的state，参数){
+    修改state的属性=参数
+  }
+}
+*/
+
 
 const mutations = {
   [types.SET_SINGER](state, singer) {

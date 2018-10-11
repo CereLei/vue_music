@@ -1,3 +1,4 @@
+//通过getters取数据到状态中
 export const singer=state=>state.singer
 
 export const playing=state=>state.playing
