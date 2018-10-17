@@ -9,7 +9,7 @@
 
 <script type="text/ecmascript-6">
 import {mapGetters} from 'vuex'
-import {getSingerDetail} from 'api/singer'
+import {getSingerDetail,getSongerUrl} from 'api/singer'
 import {ERR_OK} from 'api/config'
 
 import {createSong} from 'common/js/songtest'
@@ -34,13 +34,19 @@ import {createSong} from 'common/js/songtest'
           this.$router.push('/singer')
           return
         }
-        getSingerDetail(this.singer.id).then((res)=>{
-          if(res.code ===ERR_OK){
+        // getSingerDetail(this.singer.id).then((res)=>{
+        //   if(res.code ===ERR_OK){
+        //     this.songs=this._normalizeSongs(res.data.list)
+        //     console.log(this.songs)
+        //   }
+        // })
+        getSongerUrl().then(
+          (res)=>{
             debugger
-            this.songs=this._normalizeSongs(res.data.list)
-            console.log(this.songs)
-          }
-        })
+            let urlSong=res;
+          },
+          (error)=>console.log(error)
+        )
       },
       _normalizeSongs(list) {
         let ret = []
@@ -51,7 +57,9 @@ import {createSong} from 'common/js/songtest'
           }
         })
         return ret
-      }
+      },
+
+
     }
   }
 </script>
